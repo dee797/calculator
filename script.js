@@ -83,9 +83,9 @@ function main() {
 
         for (const button of buttons["operators"]) {
             button.addEventListener("click", () => {
-                const result = displayResult()
+                const result = getResult()
 
-                if (!display.textContent.includes(" ")) displayInputs(button.value);
+                if (!display.textContent.includes(" ") && display.textContent !== "") displayInputs(button.value);
                 else if (result !== "") display.textContent = result + button.value;
             });
         }
@@ -95,18 +95,21 @@ function main() {
         });
 
         buttons.other[1].addEventListener("click", () => {
-            if (!display.textContent.includes(".")) displayInputs(buttons.other[1].value);
+            const arr = display.textContent.split(" ");
+
+            if (!arr[0].includes(".")) displayInputs(buttons.other[1].value);
+            if (arr[2] !== undefined && !arr[2].includes(".")) displayInputs(buttons.other[1].value);
         });
 
         buttons.other[2].addEventListener("click", () => {
-            const result = displayResult();
+            const result = getResult();
             if (result !== "") display.textContent = result;
         });
     }
 
 
 
-    function displayResult() {
+    function getResult() {
         const arr = display.textContent.split(" ");
         let result = "";
 
