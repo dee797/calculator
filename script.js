@@ -1,3 +1,5 @@
+'use strict';
+
 function addNumbers(num1, num2) {
     return num1 + num2;
 }
@@ -17,20 +19,20 @@ function divideNumbers(num1, num2) {
 function operate(num1, operator, num2) {
     let result;
     switch (operator) {
-        case "+":
+        case "add":
             result = addNumbers(num1, num2);
-        case "-":
+        case "subtract":
             result = subtractNumbers(num1, num2);
-        case "*":
+        case "multiply":
             result = multiplyNumbers(num1, num2);
-        case "/":
+        case "divide":
             result = divideNumbers(num1, num2);
     }
     return result;
 }
 
 
-function createEventListeners() {
+function getButtons() {
     const buttons = {
 
         digits: {
@@ -60,11 +62,26 @@ function createEventListeners() {
         }
 
     }
-    
+
+    return buttons;
+}
+
+
+function createEventListeners() {
+    const buttons = getButtons();
+
+    for (const property of Object.entries(buttons.digits)) {
+        property.addEventListener("click", () => {
+
+        });
+    }
 }
 
 
 
 function main() {
+    let firstNum;
+    let operator;
+    let secondNum;
 
 }
