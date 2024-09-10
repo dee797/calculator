@@ -90,18 +90,31 @@ function main() {
             });
         }
 
+
         buttons.other[0].addEventListener("click", () => {
+            let content = display.textContent;
+
+            if (content.endsWith(" ")) {
+                content = content.slice(0, content.length - 3);
+                display.textContent = content;
+            } else if (content !== "") {
+                content = content.slice(0, content.length - 1);
+                display.textContent = content;
+            }
+        })
+
+        buttons.other[1].addEventListener("click", () => {
             display.textContent = "";
         });
 
-        buttons.other[1].addEventListener("click", () => {
+        buttons.other[2].addEventListener("click", () => {
             const arr = display.textContent.split(" ");
 
             if (!arr[0].includes(".")) displayInputs(buttons.other[1].value);
             if (arr[2] !== undefined && !arr[2].includes(".")) displayInputs(buttons.other[1].value);
         });
 
-        buttons.other[2].addEventListener("click", () => {
+        buttons.other[3].addEventListener("click", () => {
             const result = getResult();
             if (result !== "") display.textContent = result;
         });
