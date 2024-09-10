@@ -32,6 +32,9 @@ function operate(num1, operator, num2) {
             result = divideNumbers(num1, num2);
             break
     }
+
+    if (!Number.isInteger(result)) result = Math.round(result * 1000000000) / 1000000000
+
     return result;
 }
 
@@ -68,38 +71,54 @@ function main() {
     let firstNum;
     let operator;
     let secondNum;
-    let result;
 
-    for (const button of buttons["digits"]) {
-        button.addEventListener("click", () => {
-            displayInputs(button.id);
+    createEventListeners();
+
+    function createEventListeners() {
+        for (const button of buttons["digits"]) {
+            button.addEventListener("click", () => {
+                displayInputs(button.id);
+            });
+        }
+
+        for (const button of buttons["operators"]) {
+            button.addEventListener("click", () => {
+                const result = displayResult()
+
+                if (!display.textContent.includes(" ")) displayInputs(button.value);
+                else if (result !== "") display.textContent = result + button.value;
+            });
+        }
+
+        buttons.other[0].addEventListener("click", () => {
+            display.textContent = "";
+        });
+
+        buttons.other[1].addEventListener("click", () => {
+            if (!display.textContent.includes(".")) displayInputs(buttons.other[1].value);
+        });
+
+        buttons.other[2].addEventListener("click", () => {
+            const result = displayResult();
+            if (result !== "") display.textContent = result;
         });
     }
 
-    for (const button of buttons["operators"]) {
-        button.addEventListener("click", () => {
-            displayInputs(button.value);
-        });
-    }
 
-    buttons.other[0].addEventListener("click", () => {
-        display.textContent = "";
-    });
 
-    buttons.other[1].addEventListener("click", () => {
-        if (!display.textContent.includes(".")) displayInputs(buttons.other[1].value);
-    });
-
-    buttons.other[2].addEventListener("click", () => {
+    function displayResult() {
         const arr = display.textContent.split(" ");
-        if (arr.length === 3) {
+        let result = "";
+
+        if (arr.length === 3 && arr[2] !== "") {
             firstNum = parseFloat(arr[0]);
             operator = arr[1];
             secondNum = parseFloat(arr[2]);
             result = operate(firstNum, operator, secondNum);
-            display.textContent = result;
         }
-    });
+
+        return result;
+    }
 }
 
 
