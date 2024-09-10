@@ -110,8 +110,8 @@ function main() {
         buttons.other[2].addEventListener("click", () => {
             const arr = display.textContent.split(" ");
 
-            if (!arr[0].includes(".")) displayInputs(buttons.other[1].value);
-            if (arr[2] !== undefined && !arr[2].includes(".")) displayInputs(buttons.other[1].value);
+            if (!arr[0].includes(".")) displayInputs(buttons.other[2].value);
+            if (arr[2] !== undefined && !arr[2].includes(".")) displayInputs(buttons.other[2].value);
         });
 
         buttons.other[3].addEventListener("click", () => {
