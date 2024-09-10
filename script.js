@@ -19,17 +19,22 @@ function divideNumbers(num1, num2) {
 function operate(num1, operator, num2) {
     let result;
     switch (operator) {
-        case "add":
+        case "+":
             result = addNumbers(num1, num2);
-        case "subtract":
+            break
+        case "-":
             result = subtractNumbers(num1, num2);
-        case "multiply":
+            break
+        case "*":
             result = multiplyNumbers(num1, num2);
-        case "divide":
+            break
+        case "/":
             result = divideNumbers(num1, num2);
+            break
     }
     return result;
 }
+
 
 
 function getButtons() {
@@ -41,6 +46,7 @@ function getButtons() {
 
     return buttons;
 }
+
 
 
 function displayInputs(input) {
@@ -55,8 +61,14 @@ function displayInputs(input) {
 
 
 
-function createEventListeners() {
+function main() {
     const buttons = getButtons();
+    const display = document.querySelector("body .display");
+
+    let firstNum;
+    let operator;
+    let secondNum;
+    let result;
 
     for (const button of buttons["digits"]) {
         button.addEventListener("click", () => {
@@ -69,19 +81,27 @@ function createEventListeners() {
             displayInputs(button.value);
         });
     }
+
+    buttons.other[0].addEventListener("click", () => {
+        display.textContent = "";
+    });
+
+    buttons.other[1].addEventListener("click", () => {
+        if (!display.textContent.includes(".")) displayInputs(buttons.other[1].value);
+    });
+
+    buttons.other[2].addEventListener("click", () => {
+        const arr = display.textContent.split(" ");
+        if (arr.length === 3) {
+            firstNum = parseFloat(arr[0]);
+            operator = arr[1];
+            secondNum = parseFloat(arr[2]);
+            result = operate(firstNum, operator, secondNum);
+            display.textContent = result;
+        }
+    });
 }
 
-
-
-function main() {
-    getButtons();
-    createEventListeners();
-
-    let firstNum;
-    let operator;
-    let secondNum;
-
-}
 
 
 main();
