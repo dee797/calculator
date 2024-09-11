@@ -72,10 +72,10 @@ function main() {
     let operator;
     let secondNum;
 
-    addClickEvents();
+    addEvents();
 
 
-    function addClickEvents() {
+    function addEvents() {
         for (const button of buttons["digits"]) {
             button.addEventListener("click", () => {
                 displayInputs(button.id);
@@ -121,21 +121,20 @@ function main() {
             const result = getResult();
             if (result !== "") display.textContent = result;
         });
-    }
 
 
-    addEventListener("keydown", event => {
-        const keyPress = event.key;
-        for (const key in buttons) {
-            for (const button of buttons[key]) {
-                if (button.id.includes(keyPress) || button.value.includes(keyPress)) {
-                    const newEvent = new MouseEvent("click", {view: window});
-                    button.dispatchEvent(newEvent);
+        addEventListener("keydown", event => {
+            const keyPress = event.key;
+            for (const key in buttons) {
+                for (const button of buttons[key]) {
+                    if (button.id.includes(keyPress) || button.value.includes(keyPress)) {
+                        button.dispatchEvent(new MouseEvent("click", {view: window}));
+                    }
                 }
             }
-        }
-    });
-        
+        });
+    }
+
 
 
     function getResult() {
@@ -146,7 +145,13 @@ function main() {
             firstNum = parseFloat(arr[0]);
             operator = arr[1];
             secondNum = parseFloat(arr[2]);
-            result = operate(firstNum, operator, secondNum);
+
+            if (operator === "/" && secondNum === 0) {
+                alert("Error: Cannot divide by 0.");
+                buttons.other[1].dispatchEvent(new MouseEvent("click", {view: window}));
+            } else {
+                result = operate(firstNum, operator, secondNum);
+            }
         }
 
         return result;
