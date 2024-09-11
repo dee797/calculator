@@ -41,7 +41,7 @@ button {
     width: 20vw;
 }
 
-.digit, .operator, #decimal, #equals {
+.digit, .operator, #decimal, #Enter {
     flex-grow: 1;
     aspect-ratio: 1/1;
     margin: 5px;
@@ -53,7 +53,7 @@ button {
     border: none;
 }
 
-#backspace, #clear {
+#Backspace, #clear {
     margin: 15px 5px;
     height: 25px;
     background-color: rgb(134, 134, 134);
@@ -61,7 +61,7 @@ button {
     border: none;
 }
 
-#backspace {
+#Backspace {
     flex-grow: 2.25;
 }
 
