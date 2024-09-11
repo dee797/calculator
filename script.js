@@ -72,9 +72,10 @@ function main() {
     let operator;
     let secondNum;
 
-    createEventListeners();
+    addClickEvents();
 
-    function createEventListeners() {
+
+    function addClickEvents() {
         for (const button of buttons["digits"]) {
             button.addEventListener("click", () => {
                 displayInputs(button.id);
@@ -110,8 +111,10 @@ function main() {
         buttons.other[2].addEventListener("click", () => {
             const arr = display.textContent.split(" ");
 
-            if (!arr[0].includes(".")) displayInputs(buttons.other[2].value);
-            if (arr[2] !== undefined && !arr[2].includes(".")) displayInputs(buttons.other[2].value);
+            if (arr[1] === undefined && !arr[0].includes(".")) arr[0] += buttons.other[2].value;
+            if (arr[2] !== undefined && !arr[2].includes(".")) arr[2] += buttons.other[2].value;
+
+            display.textContent = arr.join(" ");
         });
 
         buttons.other[3].addEventListener("click", () => {
@@ -120,6 +123,19 @@ function main() {
         });
     }
 
+
+    addEventListener("keydown", event => {
+        const keyPress = event.key;
+        for (const key in buttons) {
+            for (const button of buttons[key]) {
+                if (button.id.includes(keyPress) || button.value.includes(keyPress)) {
+                    const newEvent = new MouseEvent("click", {view: window});
+                    button.dispatchEvent(newEvent);
+                }
+            }
+        }
+    });
+        
 
 
     function getResult() {
